@@ -68,7 +68,29 @@ public class AlbumController : ControllerBase
     [Route("CreateAlbum")]
     public async Task<IActionResult> CreateAlbumsAsync(Album album)
     {
-        var result = await _albumService.CreateAlbum(album);
-        return Ok(result);
+        try 
+        {
+            var result = await _albumService.CreateAlbum(album);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status400BadRequest,  ex.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("UpdateAlbum")]
+    public async Task<IActionResult> UpdateAlbumsAsync(Album album)
+    {
+        try 
+        {
+            var result = await _albumService.UpdateAlbum(album);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status400BadRequest,  ex.Message);
+        }
     }
 }

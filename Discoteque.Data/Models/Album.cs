@@ -9,6 +9,7 @@ public  class Album : BaseEntity<int>
     /// <summary>
     /// Name of the Album
     /// </summary>
+    // [RegularExpression("^(?!.*(Revolución|Poder|Amor|Guerra)).*$", ErrorMessage = "Palabras banneadas")]
     public string Name { get; set; } = "";
     /// <summary>
     /// Year the albums was published
@@ -31,6 +32,8 @@ public  class Album : BaseEntity<int>
     /// The <see cref="Artist"/> Entity this album is refering to
     /// </summary> <summary>
     public virtual Artist? Artist { get; set; } 
+
+    public float Cost { get; set; } = 50.00f;
 }
 
 /// <summary>

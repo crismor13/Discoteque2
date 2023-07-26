@@ -23,6 +23,8 @@ builder.Services.AddDbContext<DiscotequeContext>(
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IArtistsService, ArtistsService>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
+builder.Services.AddScoped<ISongService, SongsService>();
+builder.Services.AddScoped<ITourService, TourService>();
 
 var app = builder.Build();
 PopulateDb(app);
@@ -55,6 +57,8 @@ async void PopulateDb(WebApplication app)
     {
         var artistService = scope.ServiceProvider.GetRequiredService<IArtistsService>();
         var albumService = scope.ServiceProvider.GetRequiredService<IAlbumService>();
+        var songService = scope.ServiceProvider.GetRequiredService<ISongService>();
+        var tourService = scope.ServiceProvider.GetRequiredService<ITourService>();
 
         // Artists
         await artistService.CreateArtist(new Discoteque.Data.Models.Artist{
@@ -120,6 +124,7 @@ async void PopulateDb(WebApplication app)
             IsOnTour = true
         });
 
+
         // Albums
         #region Karol G
         await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
@@ -141,12 +146,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 1,
             Genre = Discoteque.Data.Models.Genres.Urban
         });
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 2023,
-            Name = "Mañana será bonito",
-            ArtistId = 1,
-            Genre = Discoteque.Data.Models.Genres.Urban
-        });
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 2023,
+        //     Name = "Mañana será bonito",
+        //     ArtistId = 1,
+        //     Genre = Discoteque.Data.Models.Genres.Urban
+        // });
         #endregion
 
         #region Juanes
@@ -181,12 +186,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 2,
             Genre = Discoteque.Data.Models.Genres.Rock
         });
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 2014,
-            Name = "Loco de amor",
-            ArtistId = 2,
-            Genre = Discoteque.Data.Models.Genres.Rock
-        });
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 2014,
+        //     Name = "Loco de amor",
+        //     ArtistId = 2,
+        //     Genre = Discoteque.Data.Models.Genres.Rock
+        // });
         await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
             Year = 2017,
             Name = "Mis planes son amarte",
@@ -205,12 +210,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 2,
             Genre = Discoteque.Data.Models.Genres.Rock
         });
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 2023,
-            Name = "Vida cotidiana",
-            ArtistId = 2,
-            Genre = Discoteque.Data.Models.Genres.Rock
-        });
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 2023,
+        //     Name = "Vida cotidiana",
+        //     ArtistId = 2,
+        //     Genre = Discoteque.Data.Models.Genres.Rock
+        // });
         #endregion
 
         #region Shakira
@@ -279,12 +284,12 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Joe Arroyo
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 1990,
-            Name = "La guerra de los callados",
-            ArtistId = 4,
-            Genre = Discoteque.Data.Models.Genres.Salsa
-        });    
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 1990,
+        //     Name = "La guerra de los callados",
+        //     ArtistId = 4,
+        //     Genre = Discoteque.Data.Models.Genres.Salsa
+        // });    
         await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
             Year = 1992,
             Name = "La voz",
@@ -330,12 +335,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 5,
             Genre = Discoteque.Data.Models.Genres.Vallenato
         }); 
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 1999,
-            Name = "El amor de la tierra",
-            ArtistId = 5,
-            Genre = Discoteque.Data.Models.Genres.Vallenato
-        }); 
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 1999,
+        //     Name = "El amor de la tierra",
+        //     ArtistId = 5,
+        //     Genre = Discoteque.Data.Models.Genres.Vallenato
+        // }); 
         await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
             Year = 2001,
             Name = "Dejame entrar",
@@ -354,12 +359,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 5,
             Genre = Discoteque.Data.Models.Genres.Vallenato
         }); 
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 2022,
-            Name = "Cumbiana II",
-            ArtistId = 5,
-            Genre = Discoteque.Data.Models.Genres.Vallenato
-        }); 
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 2022,
+        //     Name = "Cumbiana II",
+        //     ArtistId = 5,
+        //     Genre = Discoteque.Data.Models.Genres.Vallenato
+        // }); 
         #endregion 
 
         #region Silvestre Dangond
@@ -447,12 +452,12 @@ async void PopulateDb(WebApplication app)
             ArtistId = 8,
             Genre = Discoteque.Data.Models.Genres.Urban
         });
-        await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
-            Year = 2023,
-            Name = "Don Juan",
-            ArtistId = 8,
-            Genre = Discoteque.Data.Models.Genres.Vallenato
-        });
+        // await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
+        //     Year = 2023,
+        //     Name = "Don Juan",
+        //     ArtistId = 8,
+        //     Genre = Discoteque.Data.Models.Genres.Vallenato
+        // });
         #endregion
 
         #region Andrés Cepeda
@@ -514,6 +519,44 @@ async void PopulateDb(WebApplication app)
             Genre = Discoteque.Data.Models.Genres.Urban
         });
         #endregion
+
+        await songService.CreateSong(new Discoteque.Data.Models.Song{
+            Name = "Ahora me llama",
+            Duration = new TimeSpan(0, 3, 55),
+            AlbumId = 1
+        });
+
+        await songService.CreateSong(new Discoteque.Data.Models.Song{
+            Name = "Culpables",
+            Duration = new TimeSpan(0, 3, 46),
+            AlbumId = 2
+        });
+
+
+
+        await tourService.CreateTour(new Discoteque.Data.Models.Tour{
+            Name = "Bla bla",
+            City = "Medellín",
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            CompletelySold = false,
+            ArtistId = 1
+        });
+
+        await tourService.CreateTour(new Discoteque.Data.Models.Tour{
+            Name = "Bla bla",
+            City = "Bogotá",
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            CompletelySold = false,
+            ArtistId = 2
+        });
+
+        await tourService.CreateTour(new Discoteque.Data.Models.Tour{
+            Name = "Bla bla",
+            City = "Cali",
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            CompletelySold = true,
+            ArtistId = 3
+        });
     }
 }
 #endregion

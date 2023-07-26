@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using Discoteque.Data;
 using Discoteque.Data.Models;
 using Discoteque.Data.Services;
@@ -24,13 +25,30 @@ public class AlbumService : IAlbumService
     /// <returns>The created album with an Id assigned</returns>
     public async Task<Album> CreateAlbum(Album album)
     {
+        string pattern = @"\b(?:Revolución|Poder|Amor|Guerra)\b";
+        Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+
         var newAlbum = new Album{
             Name = album.Name,
             ArtistId = album.ArtistId,
             Genre = album.Genre,
             Year = album.Year
         };
+
         
+        if (album.Year < 1905 || album.Year > 2021)
+        {
+            throw new ArgumentException("Album year must be between 1905 and 2021 inclusive");
+        }
+        else if (album.Cost < 0)
+        {
+            throw new ArgumentException("Album cost can't be less than 0");
+        }
+        else if (regex.IsMatch(album.Name))
+        {
+            throw new ArgumentException("Album name is forbidden");
+        }
+
         await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
         await _unitOfWork.SaveAsync();
         return newAlbum;
@@ -123,6 +141,10 @@ public class AlbumService : IAlbumService
     /// <returns>The new album with updated fields if successful</returns>
     public async Task<Album> UpdateAlbum(Album album)
     {
+        if(album.Year < 1905 || album.Year > 2021)
+        {
+            throw new ArgumentException("Album year must be between 1905 and 2021 inclusive");
+        }
         await _unitOfWork.AlbumRepository.Update(album);
         await _unitOfWork.SaveAsync();
         return album;
